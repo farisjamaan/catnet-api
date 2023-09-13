@@ -1,6 +1,7 @@
 from PIL import Image
 import numpy as np
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 import tensorflow as tf
 import keras 
@@ -8,6 +9,17 @@ import os
 import cv2
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class_names = ['cataract', 'normal']
 model = keras.models.load_model("catnet.h5")
