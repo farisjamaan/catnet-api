@@ -22,9 +22,10 @@ def predict(img_path):
     img_array = tf.expand_dims(img_array, 0)
     predictions = model.predict(img_array)
     score = predictions[0]
-    # score = 100 * np.max(score)
-    res = "This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
-    res = {"{}".format(class_names[np.argmax(score)], 100 * np.max(score)):"{:.4f}".format(100 * np.max(score))}
+    res = {
+        "diagnosis":"{}".format(class_names[np.argmax(score)], 100 * np.max(score)),
+        "confidence":"{:.4f}".format(100 * np.max(score)),
+        }
     return res
 
 def thresh_crop_image(img) :
